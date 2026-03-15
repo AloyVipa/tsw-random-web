@@ -1,5 +1,5 @@
 /**
- * Scenario Service - Generates complete TSW5 scenarios
+ * Scenario Service - Generates complete TSW scenarios
  */
 
 const MISSION_TYPES = {
@@ -104,7 +104,7 @@ class ScenarioService {
      * @returns {String}
      */
     formatForClipboard(scenario) {
-        const title = this.lang === 'de' ? '🎲 TSW5 Szenario' : '🎲 TSW5 Scenario';
+        const title = this.lang === 'de' ? '🎲 TSW Szenario' : '🎲 TSW Scenario';
         return `${title}
 -----------------------
 📅 ${scenario.formattedDate}

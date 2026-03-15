@@ -1,5 +1,5 @@
 /**
- * Routes Service - Manages TSW5 route data
+ * Routes Service - Manages TSW route data
  */
 
 const DEFAULT_ROUTES = {

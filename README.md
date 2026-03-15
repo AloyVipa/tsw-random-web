@@ -1,4 +1,4 @@
-# TSW5 Random Weather Scenario Generator
+# TSW Random Weather Scenario Generator
 
 > **EN** | A web app for generating random scenarios for Train Sim World 5  
 > **DE** | Eine Web-App zur Generierung zufälliger Szenarien für Train Sim World 5
@@ -12,7 +12,7 @@
 | EN | DE |
 |----|-----|
 | **Weather Generation** — Realistic seasonal probabilities based on selected month | **Wetter-Generierung** — Realistische saisonale Wahrscheinlichkeiten basierend auf dem Monat |
-| **Route Selection** — Pre-configured lists for TSW5 DLCs (Germany, UK, USA) | **Routen-Auswahl** — Voreingestellte Listen für TSW5 DLCs (Deutschland, UK, USA) |
+| **Route Selection** — Pre-configured lists for TSW DLCs (Germany, UK, USA) | **Routen-Auswahl** — Voreingestellte Listen für TSW DLCs (Deutschland, UK, USA) |
 | **Scenario Generator** — Randomly combines weather, route, time and train type | **Szenario-Generator** — Kombiniert Wetter, Route, Uhrzeit und Zugtyp zufällig |
 | **Share Function** — Copy generated scenario to clipboard | **Teilen-Funktion** — Kopiere das Szenario in die Zwischenablage |
 | **Route Management** — Add your own routes or manage existing ones | **Routen-Verwaltung** — Füge eigene Routen hinzu oder verwalte bestehende |

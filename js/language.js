@@ -26,7 +26,7 @@ const WEATHER_TRANSLATIONS = {
 
 const translations = {
     en: {
-        title: "🚂 TSW5 Random Weather Scenario",
+        title: "🚂 TSW Random Weather Scenario",
         subtitle: "Generate random scenarios for Train Sim World 5",
         newScenario: "🎲 New Scenario",
         copy: "📋 Copy",
@@ -58,7 +58,7 @@ const translations = {
         filterUK: "🇬🇧 UK",
         filterUSA: "🇺🇸 USA",
         footerGithub: "GitHub: AloyVipa/tsw5-random-web",
-        version: "Version 1.0.0 • Made with ❤️ for TSW5 fans",
+        version: "Version 1.0.0 • Made with ❤️ for TSW fans",
         myRoutes: "My Routes",
         availableRoutes: "Available Routes",
         searchRoutes: "🔍 Search routes...",
@@ -75,7 +75,7 @@ const translations = {
         other: "Other"
     },
     de: {
-        title: "🚂 TSW5 Random Weather Scenario",
+        title: "🚂 TSW Random Weather Scenario",
         subtitle: "Generiere zufällige Szenarien für Train Sim World 5",
         newScenario: "🎲 Neues Szenario",
         copy: "📋 Kopieren",
@@ -107,7 +107,7 @@ const translations = {
         filterUK: "🇬🇧 UK",
         filterUSA: "🇺🇸 USA",
         footerGithub: "GitHub: AloyVipa/tsw5-random-web",
-        version: "Version 1.0.0 • Made with ❤️ for TSW5 fans",
+        version: "Version 1.0.0 • Made with ❤️ for TSW fans",
         myRoutes: "Meine Routen",
         availableRoutes: "Verfügbare Routen",
         searchRoutes: "🔍 Routen suchen...",
