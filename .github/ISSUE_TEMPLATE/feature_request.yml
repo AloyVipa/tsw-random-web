@@ -1,0 +1,28 @@
+name: 💡 Feature Request
+description: Schlage eine neue Funktion vor
+title: "[FEATURE] "
+labels: ["feature"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschreibung
+      description: Was möchtest du hinzufügen?
+      placeholder: Beschreibe die Funktion...
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Warum?
+      description: Warum wäre das nützlich?
+      placeholder: Erkläre den Nutzen...
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Bestätigung
+      options:
+        - label: Ich habe nach ähnlichen Vorschlägen gesucht
+          required: true

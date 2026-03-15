@@ -1,0 +1,41 @@
+name: 🐛 Bug Report
+description: Melde einen Fehler
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschreibung
+      description: Was ist das Problem?
+      placeholder: Beschreibe den Fehler...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Schritte zum Reproduzieren
+      description: Wie kann man den Fehler nachvollziehen?
+      placeholder: |
+        1. Gehe zu...
+        2. Klicke auf...
+        3. Fehler tritt auf
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Andere
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Bestätigung
+      options:
+        - label: Ich habe nach ähnlichen Issues gesucht
+          required: true

@@ -278,6 +278,53 @@ main {
     overflow-y: auto;
 }
 
+/* Feedback Section */
+.feedback-section {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    padding: 1.5rem 1rem;
+    text-align: center;
+}
+
+.feedback-section p {
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.feedback-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-feedback {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.btn-feedback.bug {
+    background: var(--accent-danger);
+    color: white;
+}
+
+.btn-feedback.bug:hover {
+    background: var(--accent-danger-hover);
+}
+
+.btn-feedback.feature {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.btn-feedback.feature:hover {
+    background: var(--accent-secondary);
+}
+
 /* Buttons */
 .btn {
     display: inline-flex;
