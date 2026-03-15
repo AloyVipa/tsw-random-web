@@ -3,7 +3,7 @@
 > **EN** | A web app for generating random scenarios for Train Sim World 5  
 > **DE** | Eine Web-App zur Generierung zufälliger Szenarien für Train Sim World 5
 
-🌐 **Live:** https://aloyvipa.github.io/tsw5-random-web/
+🌐 **Live:** https://aloyvipa.github.io/tsw-random-web/
 
 ---
 
@@ -137,8 +137,8 @@ Repository supervision by [@MCBlatt](https://github.com/MCBlatt).
 
 | | Link |
 |---|------|
-| 🐛 **Bugs** | [View / Report](https://github.com/AloyVipa/tsw5-random-web/issues?q=is%3Aissue+label%3Abug) |
-| 💡 **Features** | [View / Suggest](https://github.com/AloyVipa/tsw5-random-web/issues?q=is%3Aissue+label%3Afeature) |
+| 🐛 **Bugs** | [View / Report](https://github.com/AloyVipa/tsw-random-web/issues?q=is%3Aissue+label%3Abug) |
+| 💡 **Features** | [View / Suggest](https://github.com/AloyVipa/tsw-random-web/issues?q=is%3Aissue+label%3Afeature) |
 
 ---
 
