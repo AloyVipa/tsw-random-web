@@ -36,7 +36,10 @@ const translations = {
         filterUK: "🇬🇧 United Kingdom",
         filterUSA: "🇺🇸 USA",
         footerGithub: "GitHub: AloyVipa/tsw5-random-web",
-        version: "Version 1.0.0 • Made with ❤️ for TSW5 fans"
+        version: "Version 1.0.0 • Made with ❤️ for TSW5 fans",
+        myRoutes: "My Routes",
+        availableRoutes: "Available Routes",
+        searchRoutes: "🔍 Search routes..."
     },
     de: {
         title: "🚂 TSW5 Random Weather Scenario",
@@ -71,7 +74,10 @@ const translations = {
         filterUK: "🇬🇧 Großbritannien",
         filterUSA: "🇺🇸 USA",
         footerGithub: "GitHub: AloyVipa/tsw5-random-web",
-        version: "Version 1.0.0 • Made with ❤️ for TSW5 fans"
+        version: "Version 1.0.0 • Made with ❤️ for TSW5 fans",
+        myRoutes: "Meine Routen",
+        availableRoutes: "Verfügbare Routen",
+        searchRoutes: "🔍 Routen suchen..."
     }
 };
 
@@ -81,9 +87,30 @@ class LanguageService {
     }
 
     detectLanguage() {
+        // Check saved preference first
+        const savedLang = localStorage.getItem('tsw5_language');
+        if (savedLang && translations[savedLang]) {
+            return savedLang;
+        }
+        
+        // Detect from browser
         const browserLang = navigator.language || navigator.userLanguage;
-        const langCode = browserLang.split('-')[0];
+        const langCode = browserLang.toLowerCase();
+        
+        // Map variants (de-AT, de-CH -> de)
+        if (langCode.startsWith('de')) return 'de';
+        if (langCode.startsWith('en')) return 'en';
+        
         return translations[langCode] ? langCode : 'en';
+    }
+
+    setLanguage(lang) {
+        if (translations[lang]) {
+            this.currentLang = lang;
+            localStorage.setItem('tsw5_language', lang);
+            return true;
+        }
+        return false;
     }
 
     get(key) {

@@ -11,6 +11,7 @@ let scenarioService = null;
 let currentScenario = null;
 let selectedDate = new Date();
 let selectedRegion = 'all';
+let currentTab = 'germany';
 
 // DOM Elements
 let scenarioDisplay = null;
@@ -18,8 +19,11 @@ let dateInput = null;
 let routesInfo = null;
 let copyStatus = null;
 let routeModal = null;
-let routeList = null;
+let myRoutesList = null;
+let availableRoutesList = null;
 let regionFilter = null;
+let languageSelect = null;
+let routeSearch = null;
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', async () => {
@@ -41,6 +45,9 @@ async function initApp() {
 
     // Apply translations
     applyTranslations();
+
+    // Set language selector to current
+    languageSelect.value = langService.getCurrentLang();
 
     // Set today's date
     dateInput.valueAsDate = selectedDate;
@@ -65,8 +72,11 @@ function cacheElements() {
     routesInfo = document.getElementById('routes-info');
     copyStatus = document.getElementById('copy-status');
     routeModal = document.getElementById('route-modal');
-    routeList = document.getElementById('route-list');
+    myRoutesList = document.getElementById('my-routes-list');
+    availableRoutesList = document.getElementById('available-routes-list');
     regionFilter = document.getElementById('region-filter');
+    languageSelect = document.getElementById('language-select');
+    routeSearch = document.getElementById('route-search');
 }
 
 function setupEventListeners() {
@@ -84,11 +94,32 @@ function setupEventListeners() {
         }
     });
 
+    // Language change
+    languageSelect.addEventListener('change', (e) => {
+        langService.setLanguage(e.target.value);
+        location.reload(); // Reload to apply new language
+    });
+
     // Region filter change
     regionFilter.addEventListener('change', (e) => {
         selectedRegion = e.target.value;
         updateRoutesInfo();
         generateScenario();
+    });
+
+    // Route search
+    routeSearch.addEventListener('input', (e) => {
+        renderAvailableRoutes(currentTab, e.target.value);
+    });
+
+    // Tab buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentTab = btn.dataset.category;
+            renderAvailableRoutes(currentTab, routeSearch.value);
+        });
     });
 
     // Route management
@@ -135,13 +166,15 @@ function applyTranslations() {
     // Update modal
     document.querySelector('.modal-header h2').textContent = langService.get('routeManagement');
     document.getElementById('new-route-input').placeholder = langService.get('addRoutePlaceholder');
+    document.getElementById('route-search').placeholder = langService.get('searchRoutes') || '🔍 Search routes...';
     document.getElementById('add-route-btn').textContent = langService.get('addRoute');
     document.getElementById('reset-routes-btn').textContent = langService.get('resetRoutes');
     document.getElementById('clear-routes-btn').textContent = langService.get('clearRoutes');
     
-    // Update labels
-    document.querySelector('label[for="date-input"]').textContent = langService.get('date');
-    document.querySelector('label[for="region-filter"]').textContent = '🌍 Region:';
+    // Update section titles
+    const sectionTitles = document.querySelectorAll('.route-section h3');
+    if (sectionTitles[0]) sectionTitles[0].textContent = langService.get('myRoutes') || 'My Routes';
+    if (sectionTitles[1]) sectionTitles[1].textContent = langService.get('availableRoutes') || 'Available Routes';
     
     // Update footer
     document.querySelector('footer p:last-child').textContent = langService.get('version');
@@ -221,7 +254,8 @@ function updateRoutesInfo() {
 
 // Route Management Modal
 function openRouteModal() {
-    renderRouteList();
+    renderMyRoutes();
+    renderAvailableRoutes(currentTab);
     routeModal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -231,12 +265,12 @@ function closeRouteModal() {
     document.body.style.overflow = '';
 }
 
-function renderRouteList() {
+function renderMyRoutes() {
     const routes = routesService.getAllRoutes();
-    routeList.innerHTML = '';
+    myRoutesList.innerHTML = '';
 
     if (routes.length === 0) {
-        routeList.innerHTML = `<div class="empty-list">${langService.get('noRoutes')}</div>`;
+        myRoutesList.innerHTML = `<div class="empty-list">${langService.get('noRoutes')}</div>`;
         return;
     }
 
@@ -249,16 +283,64 @@ function renderRouteList() {
                 🗑️
             </button>
         `;
-        routeList.appendChild(item);
+        myRoutesList.appendChild(item);
     });
 
     // Add delete handlers
-    document.querySelectorAll('.delete-route-btn').forEach(btn => {
+    myRoutesList.querySelectorAll('.delete-route-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const route = btn.getAttribute('data-route');
             deleteRoute(route);
         });
     });
+}
+
+function renderAvailableRoutes(category, searchTerm = '') {
+    const availableRoutes = routesService.getDefaultRoutesByCategory(category);
+    const myRoutes = routesService.getAllRoutes();
+    
+    // Filter out routes already in my list and by search term
+    const filteredRoutes = availableRoutes.filter(route => {
+        const notAdded = !myRoutes.includes(route);
+        const matchesSearch = !searchTerm || route.toLowerCase().includes(searchTerm.toLowerCase());
+        return notAdded && matchesSearch;
+    });
+
+    availableRoutesList.innerHTML = '';
+
+    if (filteredRoutes.length === 0) {
+        availableRoutesList.innerHTML = `<div class="empty-list">${searchTerm ? 'No matches' : 'All routes added'}</div>`;
+        return;
+    }
+
+    filteredRoutes.sort().forEach(route => {
+        const item = document.createElement('div');
+        item.className = 'route-item available';
+        item.innerHTML = `
+            <span class="route-name">${escapeHtml(route)}</span>
+            <button class="btn-icon add-route-btn" data-route="${escapeHtml(route)}" title="Add">
+                ➕
+            </button>
+        `;
+        availableRoutesList.appendChild(item);
+    });
+
+    // Add handlers
+    availableRoutesList.querySelectorAll('.add-route-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const route = btn.getAttribute('data-route');
+            addAvailableRoute(route);
+        });
+    });
+}
+
+function addAvailableRoute(route) {
+    if (routesService.addRoute(route)) {
+        renderMyRoutes();
+        renderAvailableRoutes(currentTab, routeSearch.value);
+        updateRoutesInfo();
+        showCopyStatus(langService.get('routeAdded'), 'success');
+    }
 }
 
 function addNewRoute() {
@@ -272,7 +354,8 @@ function addNewRoute() {
 
     if (routesService.addRoute(name)) {
         input.value = '';
-        renderRouteList();
+        renderMyRoutes();
+        renderAvailableRoutes(currentTab, routeSearch.value);
         updateRoutesInfo();
         showCopyStatus(langService.get('routeAdded'), 'success');
     } else {
@@ -282,7 +365,8 @@ function addNewRoute() {
 
 function deleteRoute(route) {
     if (routesService.removeRoute(route)) {
-        renderRouteList();
+        renderMyRoutes();
+        renderAvailableRoutes(currentTab, routeSearch.value);
         updateRoutesInfo();
         showCopyStatus(langService.get('routeRemoved'), 'success');
     }
@@ -291,7 +375,8 @@ function deleteRoute(route) {
 function resetRoutes() {
     if (confirm(langService.get('confirmReset'))) {
         routesService.resetToDefault();
-        renderRouteList();
+        renderMyRoutes();
+        renderAvailableRoutes(currentTab, routeSearch.value);
         updateRoutesInfo();
         showCopyStatus(langService.get('routesReset'), 'success');
     }
@@ -300,7 +385,8 @@ function resetRoutes() {
 function clearAllRoutes() {
     if (confirm(langService.get('confirmClear'))) {
         routesService.clearAll();
-        renderRouteList();
+        renderMyRoutes();
+        renderAvailableRoutes(currentTab, routeSearch.value);
         updateRoutesInfo();
         showCopyStatus(langService.get('routesCleared'), 'success');
     }

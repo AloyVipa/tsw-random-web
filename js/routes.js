@@ -157,6 +157,13 @@ class RoutesService {
         };
     }
 
+    getDefaultRoutesByCategory(category) {
+        if (DEFAULT_ROUTES[category]) {
+            return [...DEFAULT_ROUTES[category]];
+        }
+        return [];
+    }
+
     getRouteCount() {
         return this.routes.length;
     }

@@ -65,15 +65,25 @@
                 </button>
             </div>
 
-            <!-- Region Filter -->
+            <!-- Language & Region Filter -->
             <div class="control-row filter-row">
-                <label for="region-filter">🌍 Region:</label>
-                <select id="region-filter" class="region-select">
-                    <option value="all">All Regions</option>
-                    <option value="germany">🇩🇪 Germany</option>
-                    <option value="uk">🇬🇧 United Kingdom</option>
-                    <option value="usa">🇺🇸 USA</option>
-                </select>
+                <div class="filter-group">
+                    <label for="language-select">🌐</label>
+                    <select id="language-select" class="region-select">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                    </select>
+                </div>
+                <div class="filter-divider">|</div>
+                <div class="filter-group">
+                    <label for="region-filter">🛤️</label>
+                    <select id="region-filter" class="region-select">
+                        <option value="all">All Regions</option>
+                        <option value="germany">🇩🇪 Germany</option>
+                        <option value="uk">🇬🇧 UK</option>
+                        <option value="usa">🇺🇸 USA</option>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -92,13 +102,37 @@
             </div>
             
             <div class="modal-body">
+                <!-- Search -->
+                <div class="search-section">
+                    <input type="text" id="route-search" placeholder="🔍 Search routes...">
+                </div>
+                
+                <!-- My Routes -->
+                <div class="route-section">
+                    <h3>My Routes</h3>
+                    <div id="my-routes-list" class="route-list">
+                        <!-- User's routes -->
+                    </div>
+                </div>
+                
+                <!-- Add Custom Route -->
                 <div class="add-route-section">
-                    <input type="text" id="new-route-input" placeholder="Add new route...">
+                    <input type="text" id="new-route-input" placeholder="Add custom route...">
                     <button id="add-route-btn" class="btn btn-primary">Add</button>
                 </div>
                 
-                <div id="route-list" class="route-list">
-                    <!-- Routes will be populated here -->
+                <!-- Available Routes by Category -->
+                <div class="route-section">
+                    <h3>Available Routes</h3>
+                    <div class="category-tabs">
+                        <button class="tab-btn active" data-category="germany">🇩🇪 Germany</button>
+                        <button class="tab-btn" data-category="uk">🇬🇧 UK</button>
+                        <button class="tab-btn" data-category="usa">🇺🇸 USA</button>
+                        <button class="tab-btn" data-category="other">🌍 Other</button>
+                    </div>
+                    <div id="available-routes-list" class="route-list available-routes">
+                        <!-- Available routes by category -->
+                    </div>
                 </div>
             </div>
             
