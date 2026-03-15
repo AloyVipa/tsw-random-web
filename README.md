@@ -126,6 +126,11 @@ MIT License - siehe [LICENSE](LICENSE)
 
 Basierend auf der originalen Python/Tkinter App von [MCBlatt](https://github.com/MCBlatt).
 
+## 👤 Über das Projekt
+
+Maintained by the AloyVipa project with help from automation.  
+Repository supervision by [@MCBlatt](https://github.com/MCBlatt).
+
 ## 💬 Feedback
 
 Hast du einen Bug gefunden oder eine Idee für eine neue Funktion?
